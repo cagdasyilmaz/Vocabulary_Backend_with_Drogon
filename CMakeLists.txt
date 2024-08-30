@@ -45,7 +45,7 @@ find_package(Drogon REQUIRED)
 
 find_package(ZLIB REQUIRED)
 
-set(CommonLibs ssl crypt sqlite3 spdlog::spdlog Threads::Threads Drogon::Drogon)
+set(CommonLibs ssl crypt sqlite3 spdlog::spdlog Threads::Threads Drogon::Drogon ZLIB::ZLIB)
 
 file(GLOB VOCABULARY_SOURCES Vocabulary/src/Core/*.cpp
                              Vocabulary/src/json_singletons/*.cpp
@@ -57,7 +57,7 @@ add_executable(Vocabulary_Backend_with_Drogon ${VOCABULARY_SOURCES})
 add_executable(Log_Monitor ${LOG_MONITOR_SOURCES})
 
 target_link_libraries(Vocabulary_Backend_with_Drogon
-                      PRIVATE  ${Boost_LIBRARIES} ZLIB::ZLIB ${CommonLibs})
+                      PRIVATE  ${Boost_LIBRARIES}  ${CommonLibs})
 target_link_libraries(Log_Monitor PUBLIC PcapPlusPlus::Pcap++)
 
 target_compile_options(Vocabulary_Backend_with_Drogon PRIVATE -flto=auto)
