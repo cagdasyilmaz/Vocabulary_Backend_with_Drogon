@@ -98,17 +98,7 @@ namespace Vocabulary {
             callback(res);
             return;
         }
-
-        /*
-         try {
-        } catch (const std::exception &e) {
-            VOCABULARY_CLIENT_ERROR("Error parsing request: {}", e.what());
-            res->setStatusCode(drogon::k400BadRequest);
-            res->setBody("Bad Request");
-            callback(res);
-        }
-        */
-
+        
         json post_data = json::parse(req->getBody());
 
         std::string ip_address = req->getHeader("x-real-ip");
