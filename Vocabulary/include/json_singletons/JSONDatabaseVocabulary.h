@@ -40,31 +40,91 @@ namespace Vocabulary
 {
     using json = nlohmann::json;
 
-    class ThreadSafe_JSON_Verbs
-    {
+    struct Verbs {
+        static std::string key() { return "verbs"; }
+        static std::string filePath() { return "vocabulary/verbs/verbs.json"; }
+    };
+
+    struct Advanced_Verbs {
+        static std::string key() { return "advanced_verbs"; }
+        static std::string filePath() { return "vocabulary/advanced_verbs/advanced_verbs.json"; }
+    };
+
+    struct Phrasal_Verbs {
+        static std::string key() { return "phrasal_verbs"; }
+        static std::string filePath() { return "vocabulary/phrasal_verbs/phrasal_verbs.json"; }
+    };
+
+    struct Nouns {
+        static std::string key() { return "nouns"; }
+        static std::string filePath() { return "vocabulary/nouns/nouns.json"; }
+    };
+
+    struct Advanced_Nouns {
+        static std::string key() { return "advanced_nouns"; }
+        static std::string filePath() { return "vocabulary/advanced_nouns/advanced_nouns.json"; }
+    };
+
+    struct Adjectives {
+        static std::string key() { return "adjectives"; }
+        static std::string filePath() { return "vocabulary/adjectives/adjectives.json"; }
+    };
+
+    struct Advanced_Adjectives {
+        static std::string key() { return "advanced_adjectives"; }
+        static std::string filePath() { return "vocabulary/advanced_adjectives/advanced_adjectives.json"; }
+    };
+
+    struct Adverbs {
+        static std::string key() { return "adverbs"; }
+        static std::string filePath() { return "vocabulary/adverbs/adverbs.json"; }
+    };
+
+    struct Advanced_Adverbs {
+        static std::string key() { return "advanced_adverbs"; }
+        static std::string filePath() { return "vocabulary/advanced_adverbs/advanced_adverbs.json"; }
+    };
+
+    struct Prepositions {
+        static std::string key() { return "prepositions"; }
+        static std::string filePath() { return "vocabulary/prepositions/prepositions.json"; }
+    };
+
+    struct Advanced_Prepositions {
+        static std::string key() { return "advanced_prepositions"; }
+        static std::string filePath() { return "vocabulary/advanced_prepositions/advanced_prepositions.json"; }
+    };
+
+    // Base class for ThreadSafe_JSON, used for polymorphism
+    class ThreadSafe_JSON_Base {
     public:
-        static ThreadSafe_JSON_Verbs& getInstance() {
-            static ThreadSafe_JSON_Verbs instance;
+        virtual ~ThreadSafe_JSON_Base() = default;
+
+        [[nodiscard]] virtual json read(size_t index) const = 0;
+        [[nodiscard]] virtual std::size_t size() const noexcept = 0;
+        virtual void write() = 0;
+        virtual void update() = 0;
+    };
+
+    // Template specialization inheriting from the base class
+    template <typename T>
+    class ThreadSafe_JSON : public ThreadSafe_JSON_Base {
+    public:
+        static ThreadSafe_JSON& getInstance()
+        {
+            static ThreadSafe_JSON instance;
             return instance;
         }
 
-        ThreadSafe_JSON_Verbs(const ThreadSafe_JSON_Verbs&) = delete;
-        ThreadSafe_JSON_Verbs& operator=(const ThreadSafe_JSON_Verbs&) = delete;
-        ThreadSafe_JSON_Verbs(ThreadSafe_JSON_Verbs&&) = delete;
-        ThreadSafe_JSON_Verbs& operator=(ThreadSafe_JSON_Verbs&&) = delete;
+        ~ThreadSafe_JSON() override = default;
 
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
+        json read(size_t index) const override;
+        void write() override;
+        void update() override;
+        std::size_t size() const noexcept override;
 
     private:
-        ThreadSafe_JSON_Verbs();
-
-        ~ThreadSafe_JSON_Verbs();
+        ThreadSafe_JSON();
 
         std::ifstream input;
         json j;
@@ -72,325 +132,7 @@ namespace Vocabulary
         mutable std::shared_mutex json_mutex;
     };
 
-    class ThreadSafe_JSON_Advanced_Verbs
-    {
-    public:
-        static ThreadSafe_JSON_Advanced_Verbs& getInstance() {
-            static ThreadSafe_JSON_Advanced_Verbs instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Advanced_Verbs(const ThreadSafe_JSON_Advanced_Verbs&) = delete;
-        ThreadSafe_JSON_Advanced_Verbs& operator=(const ThreadSafe_JSON_Advanced_Verbs&) = delete;
-        ThreadSafe_JSON_Advanced_Verbs(ThreadSafe_JSON_Advanced_Verbs&&) = delete;
-        ThreadSafe_JSON_Advanced_Verbs& operator=(ThreadSafe_JSON_Advanced_Verbs&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Advanced_Verbs();
-
-        ~ThreadSafe_JSON_Advanced_Verbs();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Phrasal_Verbs
-    {
-    public:
-        static ThreadSafe_JSON_Phrasal_Verbs& getInstance() {
-            static ThreadSafe_JSON_Phrasal_Verbs instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Phrasal_Verbs(const ThreadSafe_JSON_Phrasal_Verbs&) = delete;
-        ThreadSafe_JSON_Phrasal_Verbs& operator=(const ThreadSafe_JSON_Phrasal_Verbs&) = delete;
-        ThreadSafe_JSON_Phrasal_Verbs(ThreadSafe_JSON_Phrasal_Verbs&&) = delete;
-        ThreadSafe_JSON_Phrasal_Verbs& operator=(ThreadSafe_JSON_Phrasal_Verbs&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Phrasal_Verbs();
-
-        ~ThreadSafe_JSON_Phrasal_Verbs();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Nouns
-    {
-    public:
-        static ThreadSafe_JSON_Nouns& getInstance() {
-            static ThreadSafe_JSON_Nouns instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Nouns(const ThreadSafe_JSON_Nouns&) = delete;
-        ThreadSafe_JSON_Nouns& operator=(const ThreadSafe_JSON_Nouns&) = delete;
-        ThreadSafe_JSON_Nouns(ThreadSafe_JSON_Nouns&&) = delete;
-        ThreadSafe_JSON_Nouns& operator=(ThreadSafe_JSON_Nouns&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Nouns();
-
-        ~ThreadSafe_JSON_Nouns();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Advanced_Nouns
-    {
-    public:
-        static ThreadSafe_JSON_Advanced_Nouns& getInstance() {
-            static ThreadSafe_JSON_Advanced_Nouns instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Advanced_Nouns(const ThreadSafe_JSON_Advanced_Nouns&) = delete;
-        ThreadSafe_JSON_Advanced_Nouns& operator=(const ThreadSafe_JSON_Advanced_Nouns&) = delete;
-        ThreadSafe_JSON_Advanced_Nouns(ThreadSafe_JSON_Advanced_Nouns&&) = delete;
-        ThreadSafe_JSON_Advanced_Nouns& operator=(ThreadSafe_JSON_Advanced_Nouns&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Advanced_Nouns();
-
-        ~ThreadSafe_JSON_Advanced_Nouns();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Adjectives
-    {
-    public:
-        static ThreadSafe_JSON_Adjectives& getInstance() {
-            static ThreadSafe_JSON_Adjectives instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Adjectives(const ThreadSafe_JSON_Adjectives&) = delete;
-        ThreadSafe_JSON_Adjectives& operator=(const ThreadSafe_JSON_Adjectives&) = delete;
-        ThreadSafe_JSON_Adjectives(ThreadSafe_JSON_Adjectives&&) = delete;
-        ThreadSafe_JSON_Adjectives& operator=(ThreadSafe_JSON_Adjectives&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Adjectives();
-
-        ~ThreadSafe_JSON_Adjectives();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Advanced_Adjectives
-    {
-    public:
-        static ThreadSafe_JSON_Advanced_Adjectives& getInstance() {
-            static ThreadSafe_JSON_Advanced_Adjectives instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Advanced_Adjectives(const ThreadSafe_JSON_Advanced_Adjectives&) = delete;
-        ThreadSafe_JSON_Advanced_Adjectives& operator=(const ThreadSafe_JSON_Advanced_Adjectives&) = delete;
-        ThreadSafe_JSON_Advanced_Adjectives(ThreadSafe_JSON_Advanced_Adjectives&&) = delete;
-        ThreadSafe_JSON_Advanced_Adjectives& operator=(ThreadSafe_JSON_Advanced_Adjectives&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Advanced_Adjectives();
-
-        ~ThreadSafe_JSON_Advanced_Adjectives();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Adverbs
-    {
-    public:
-        static ThreadSafe_JSON_Adverbs& getInstance() {
-            static ThreadSafe_JSON_Adverbs instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Adverbs(const ThreadSafe_JSON_Adverbs&) = delete;
-        ThreadSafe_JSON_Adverbs& operator=(const ThreadSafe_JSON_Adverbs&) = delete;
-        ThreadSafe_JSON_Adverbs(ThreadSafe_JSON_Adverbs&&) = delete;
-        ThreadSafe_JSON_Adverbs& operator=(ThreadSafe_JSON_Adverbs&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Adverbs();
-
-        ~ThreadSafe_JSON_Adverbs();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Advanced_Adverbs
-    {
-    public:
-        static ThreadSafe_JSON_Advanced_Adverbs& getInstance() {
-            static ThreadSafe_JSON_Advanced_Adverbs instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Advanced_Adverbs(const ThreadSafe_JSON_Advanced_Adverbs&) = delete;
-        ThreadSafe_JSON_Advanced_Adverbs& operator=(const ThreadSafe_JSON_Advanced_Adverbs&) = delete;
-        ThreadSafe_JSON_Advanced_Adverbs(ThreadSafe_JSON_Advanced_Adverbs&&) = delete;
-        ThreadSafe_JSON_Advanced_Adverbs& operator=(ThreadSafe_JSON_Advanced_Adverbs&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Advanced_Adverbs();
-
-        ~ThreadSafe_JSON_Advanced_Adverbs();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Prepositions
-    {
-    public:
-        static ThreadSafe_JSON_Prepositions& getInstance() {
-            static ThreadSafe_JSON_Prepositions instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Prepositions(const ThreadSafe_JSON_Prepositions&) = delete;
-        ThreadSafe_JSON_Prepositions& operator=(const ThreadSafe_JSON_Prepositions&) = delete;
-        ThreadSafe_JSON_Prepositions(ThreadSafe_JSON_Prepositions&&) = delete;
-        ThreadSafe_JSON_Prepositions& operator=(ThreadSafe_JSON_Prepositions&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Prepositions();
-
-        ~ThreadSafe_JSON_Prepositions();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
-
-    class ThreadSafe_JSON_Advanced_Prepositions
-    {
-    public:
-        static ThreadSafe_JSON_Advanced_Prepositions& getInstance() {
-            static ThreadSafe_JSON_Advanced_Prepositions instance;
-            return instance;
-        }
-
-        ThreadSafe_JSON_Advanced_Prepositions(const ThreadSafe_JSON_Advanced_Prepositions&) = delete;
-        ThreadSafe_JSON_Advanced_Prepositions& operator=(const ThreadSafe_JSON_Advanced_Prepositions&) = delete;
-        ThreadSafe_JSON_Advanced_Prepositions(ThreadSafe_JSON_Advanced_Prepositions&&) = delete;
-        ThreadSafe_JSON_Advanced_Prepositions& operator=(ThreadSafe_JSON_Advanced_Prepositions&&) = delete;
-
-        json read(size_t index) const;
-
-        void write();
-
-        void update();
-
-        std::size_t size() const noexcept;
-
-    private:
-        ThreadSafe_JSON_Advanced_Prepositions();
-
-        ~ThreadSafe_JSON_Advanced_Prepositions();
-
-        std::ifstream input;
-        json j;
-        std::ofstream output;
-        mutable std::shared_mutex json_mutex;
-    };
+    extern std::unordered_map<std::string, std::function<ThreadSafe_JSON_Base&()>> jsonVocabularyContainer;
 
     void initialize_JSON_Vocabulary_Classes();
 }
