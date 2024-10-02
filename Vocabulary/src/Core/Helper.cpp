@@ -55,37 +55,37 @@ namespace Vocabulary {
         switch (vocabularyType)
         {
             case VocabularyType::Verbs:
-                return ThreadSafe_JSON_Verbs::getInstance().size();
+                return jsonVocabularyContainer["verbs"]().size();
 
             case VocabularyType::Advanced_Verbs:
-                return ThreadSafe_JSON_Advanced_Verbs::getInstance().size();
+                return jsonVocabularyContainer["advanced_verbs"]().size();
 
             case VocabularyType::Phrasal_Verbs:
-                return ThreadSafe_JSON_Phrasal_Verbs::getInstance().size();
+                return jsonVocabularyContainer["phrasal_verbs"]().size();
 
             case VocabularyType::Nouns:
-                return ThreadSafe_JSON_Nouns::getInstance().size();
+                return jsonVocabularyContainer["nouns"]().size();
 
             case VocabularyType::Advanced_Nouns:
-                return ThreadSafe_JSON_Advanced_Nouns::getInstance().size();
+                return jsonVocabularyContainer["advanced_nouns"]().size();
 
             case VocabularyType::Adjectives:
-                return ThreadSafe_JSON_Adjectives::getInstance().size();
+                return jsonVocabularyContainer["adjectives"]().size();
 
             case VocabularyType::Advanced_Adjectives:
-                return ThreadSafe_JSON_Advanced_Adjectives::getInstance().size();
+                return jsonVocabularyContainer["advanced_adjectives"]().size();
 
             case VocabularyType::Adverbs:
-                return ThreadSafe_JSON_Adverbs::getInstance().size();
+                return jsonVocabularyContainer["adverbs"]().size();
 
             case VocabularyType::Advanced_Adverbs:
-                return ThreadSafe_JSON_Advanced_Adverbs::getInstance().size();
+                return jsonVocabularyContainer["advanced_adverbs"]().size();
 
             case VocabularyType::Prepositions:
-                return ThreadSafe_JSON_Prepositions::getInstance().size();
+                return jsonVocabularyContainer["prepositions"]().size();
 
             case VocabularyType::Advanced_Prepositions:
-                return ThreadSafe_JSON_Advanced_Prepositions::getInstance().size();
+                return jsonVocabularyContainer["advanced_prepositions"]().size();
 
             default:
                 return 0;
@@ -99,48 +99,48 @@ namespace Vocabulary {
         switch (vocabularyType)
         {
             case VocabularyType::Verbs:
-                j_string = to_string(ThreadSafe_JSON_Verbs::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["verbs"]().read(index));
+            break;
 
             case VocabularyType::Advanced_Verbs:
-                j_string = to_string(ThreadSafe_JSON_Advanced_Verbs::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["advanced_verbs"]().read(index));
+            break;
 
             case VocabularyType::Phrasal_Verbs:
-                j_string = to_string(ThreadSafe_JSON_Phrasal_Verbs::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["phrasal_verbs"]().read(index));
+            break;
 
             case VocabularyType::Nouns:
-                j_string = to_string(ThreadSafe_JSON_Nouns::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["nouns"]().read(index));
+            break;
 
             case VocabularyType::Advanced_Nouns:
-                j_string = to_string(ThreadSafe_JSON_Advanced_Nouns::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["advanced_nouns"]().read(index));
+            break;
 
             case VocabularyType::Adjectives:
-                j_string = to_string(ThreadSafe_JSON_Adjectives::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["adjectives"]().read(index));
+            break;
 
             case VocabularyType::Advanced_Adjectives:
-                j_string = to_string(ThreadSafe_JSON_Advanced_Adjectives::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["advanced_adjectives"]().read(index));
+            break;
 
             case VocabularyType::Adverbs:
-                j_string = to_string(ThreadSafe_JSON_Adverbs::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["adverbs"]().read(index));
+            break;
 
             case VocabularyType::Advanced_Adverbs:
-                j_string = to_string(ThreadSafe_JSON_Advanced_Adverbs::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["advanced_adverbs"]().read(index));
+            break;
 
             case VocabularyType::Prepositions:
-                j_string = to_string(ThreadSafe_JSON_Prepositions::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["prepositions"]().read(index));
+            break;
 
             case VocabularyType::Advanced_Prepositions:
-                j_string = to_string(ThreadSafe_JSON_Advanced_Prepositions::getInstance().read(index));
-                break;
+                j_string = to_string(jsonVocabularyContainer["advanced_prepositions"]().read(index));
+            break;
 
             default:
                 j_string.clear();
